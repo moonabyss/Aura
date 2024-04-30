@@ -5,6 +5,11 @@
 AAG_CharacterBase::AAG_CharacterBase()
 {
     PrimaryActorTick.bCanEverTick = false;
+
+    Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
+    check(Weapon);
+    Weapon->SetupAttachment(GetMesh(), "WeaponHandSocket");
+    Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void AAG_CharacterBase::BeginPlay()
