@@ -7,8 +7,21 @@
 
 #include "AG_AuraCharacter.generated.h"
 
+class USpringArmComponent;
+class UCameraComponent;
+
 UCLASS()
 class AURA_API AAG_AuraCharacter : public AAG_CharacterBase
 {
     GENERATED_BODY()
+
+public:
+    AAG_AuraCharacter();
+
+protected:
+    UPROPERTY(EditAnywhere, Category = "Components")
+    TObjectPtr<USpringArmComponent> SpringArm;
+
+    UPROPERTY(EditAnywhere, Category = "Components")
+    TObjectPtr<UCameraComponent> Camera;
 };
