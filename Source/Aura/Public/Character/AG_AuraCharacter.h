@@ -10,7 +10,7 @@
 class USpringArmComponent;
 class UCameraComponent;
 
-UCLASS()
+UCLASS(Blueprintable)
 class AURA_API AAG_AuraCharacter : public AAG_CharacterBase
 {
     GENERATED_BODY()

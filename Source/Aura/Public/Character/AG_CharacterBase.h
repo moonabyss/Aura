@@ -9,7 +9,7 @@
 
 class USkeletalMeshComponent;
 
-UCLASS(Abstract)
+UCLASS(Abstract, NotBlueprintable)
 class AURA_API AAG_CharacterBase : public ACharacter
 {
     GENERATED_BODY()
