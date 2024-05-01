@@ -7,7 +7,6 @@
 
 #include "AG_EnemyCharacter.generated.h"
 
-
 UCLASS()
 class AURA_API AAG_EnemyCharacter : public AAG_CharacterBase
 {
