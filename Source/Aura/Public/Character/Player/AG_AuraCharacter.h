@@ -17,13 +17,17 @@ class AURA_API AAG_AuraCharacter : public AAG_CharacterBase
 
 public:
     AAG_AuraCharacter();
-    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;  // IAbilitySystemInterface
-    virtual UAttributeSet* GetAttributeSet() const override;
+
+    virtual void PossessedBy(AController* NewController) override;
+    virtual void OnRep_PlayerState() override;
 
 protected:
     UPROPERTY(EditAnywhere, Category = "Components")
-    TObjectPtr<USpringArmComponent> SpringArm;
+    TObjectPtr<USpringArmComponent> SpringArm{nullptr};
 
     UPROPERTY(EditAnywhere, Category = "Components")
-    TObjectPtr<UCameraComponent> Camera;
+    TObjectPtr<UCameraComponent> Camera{nullptr};
+
+private:
+    void InitAbilityActorInfo();
 };

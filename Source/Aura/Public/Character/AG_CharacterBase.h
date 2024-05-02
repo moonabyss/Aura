@@ -20,12 +20,16 @@ class AURA_API AAG_CharacterBase : public ACharacter, public IAbilitySystemInter
 public:
     AAG_CharacterBase();
 
-    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return nullptr; }  // IAbilitySystemInterface
-    virtual UAttributeSet* GetAttributeSet() const { return nullptr; }
+    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }  // IAbilitySystemInterface
+    virtual UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 protected:
-    virtual void BeginPlay() override;
-
     UPROPERTY(EditAnywhere, Category = "Combat")
-    TObjectPtr<USkeletalMeshComponent> Weapon;
+    TObjectPtr<USkeletalMeshComponent> Weapon{nullptr};
+
+    UPROPERTY()
+    TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent{nullptr};
+
+    UPROPERTY()
+    TObjectPtr<UAttributeSet> AttributeSet{nullptr};
 };

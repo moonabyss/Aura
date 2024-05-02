@@ -1,6 +1,7 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
 #include "Character/Player/AG_AuraCharacter.h"
+#include "AbilitySystem/AG_AbilitySystemComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -36,18 +37,28 @@ AAG_AuraCharacter::AAG_AuraCharacter()
     bUseControllerRotationYaw = false;
 }
 
-UAbilitySystemComponent* AAG_AuraCharacter::GetAbilitySystemComponent() const
+void AAG_AuraCharacter::PossessedBy(AController* NewController)
 {
-    auto* PS = GetPlayerState<AAG_AuraPlayerState>();
-    if (!PS) return nullptr;
+    Super::PossessedBy(NewController);
 
-    return PS->GetAbilitySystemComponent();
+    // Init ability actor info for the server
+    InitAbilityActorInfo();
 }
 
-UAttributeSet* AAG_AuraCharacter::GetAttributeSet() const
+void AAG_AuraCharacter::OnRep_PlayerState()
 {
-    auto* PS = GetPlayerState<AAG_AuraPlayerState>();
-    if (!PS) return nullptr;
+    Super::OnRep_PlayerState();
 
-    return PS->GetAttributeSet();
+    // Init ability actor info for the client
+    InitAbilityActorInfo();
+}
+
+void AAG_AuraCharacter::InitAbilityActorInfo()
+{
+    if (auto* AuraPlayerState = GetPlayerState<AAG_AuraPlayerState>())
+    {
+        AuraPlayerState->InitAbilityActorInfo(this);
+        AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
+        AttributeSet = AuraPlayerState->GetAttributeSet();
+    }
 }

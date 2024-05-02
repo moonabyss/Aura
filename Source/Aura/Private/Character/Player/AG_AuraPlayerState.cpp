@@ -17,3 +17,8 @@ AAG_AuraPlayerState::AAG_AuraPlayerState()
 
     NetUpdateFrequency = 100.0f;
 }
+
+void AAG_AuraPlayerState::InitAbilityActorInfo(AActor* Avatar)
+{
+    AbilitySystemComponent->InitAbilityActorInfo(this, Avatar);
+}

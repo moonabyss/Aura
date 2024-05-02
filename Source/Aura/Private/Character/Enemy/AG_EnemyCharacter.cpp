@@ -20,6 +20,13 @@ AAG_EnemyCharacter::AAG_EnemyCharacter()
     check(AttributeSet);
 }
 
+void AAG_EnemyCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+
+    AbilitySystemComponent->InitAbilityActorInfo(this, this);
+}
+
 void AAG_EnemyCharacter::HighlightActor()
 {
     GetMesh()->SetRenderCustomDepth(true);

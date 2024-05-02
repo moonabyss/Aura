@@ -11,8 +11,3 @@ AAG_CharacterBase::AAG_CharacterBase()
     Weapon->SetupAttachment(GetMesh(), "WeaponHandSocket");
     Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
-
-void AAG_CharacterBase::BeginPlay()
-{
-    Super::BeginPlay();
-}
