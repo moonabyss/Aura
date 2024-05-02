@@ -14,6 +14,7 @@ AAG_EnemyCharacter::AAG_EnemyCharacter()
     AbilitySystemComponent = CreateDefaultSubobject<UAG_AbilitySystemComponent>("AbilitySystemComponent");
     check(AbilitySystemComponent);
     AbilitySystemComponent->SetIsReplicated(true);
+    AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
     AttributeSet = CreateDefaultSubobject<UAG_AttributeSet>("AttributeSet");
     check(AttributeSet);
