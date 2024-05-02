@@ -1,6 +1,6 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
-#include "Character/AG_AuraCharacter.h"
+#include "Character/Player/AG_AuraCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"

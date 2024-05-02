@@ -1,6 +1,6 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
-#include "Character/AG_AuraPlayerController.h"
+#include "Character/Player/AG_AuraPlayerController.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 

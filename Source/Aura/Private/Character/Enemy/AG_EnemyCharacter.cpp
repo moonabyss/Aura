@@ -1,6 +1,6 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
-#include "Character/AG_EnemyCharacter.h"
+#include "Character/Enemy/AG_EnemyCharacter.h"
 #include "Aura/Aura.h"
 
 AAG_EnemyCharacter::AAG_EnemyCharacter()
