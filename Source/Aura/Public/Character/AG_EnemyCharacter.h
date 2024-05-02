@@ -16,10 +16,6 @@ class AURA_API AAG_EnemyCharacter : public AAG_CharacterBase, public IEnemyInter
 
 public:
     AAG_EnemyCharacter();
-    virtual void Tick(float DeltaSeconds) override;
     virtual void HighlightActor() override;    // IEnemyInterface
     virtual void UnHighlightActor() override;  // IEnemyInterface
-
-private:
-    bool bHighlight{false};
 };

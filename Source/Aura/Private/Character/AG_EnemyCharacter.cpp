@@ -1,25 +1,32 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
 #include "Character/AG_EnemyCharacter.h"
+#include "Aura/Aura.h"
 
 AAG_EnemyCharacter::AAG_EnemyCharacter()
 {
     PrimaryActorTick.bCanEverTick = true;
-    GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
-}
 
-void AAG_EnemyCharacter::Tick(float DeltaSeconds)
-{
-    if (bHighlight)
-    {}
+    check(GetMesh());
+    GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 }
 
 void AAG_EnemyCharacter::HighlightActor()
 {
-    bHighlight = true;
+    GetMesh()->SetRenderCustomDepth(true);
+    GetMesh()->CustomDepthStencilValue = CUSTOM_DEPTH_RED;
+    if (Weapon)
+    {
+        Weapon->SetRenderCustomDepth(true);
+        Weapon->CustomDepthStencilValue = CUSTOM_DEPTH_RED;
+    }
 }
 
 void AAG_EnemyCharacter::UnHighlightActor()
 {
-    bHighlight = false;
+    GetMesh()->SetRenderCustomDepth(false);
+    if (Weapon)
+    {
+        Weapon->SetRenderCustomDepth(false);
+    }
 }
