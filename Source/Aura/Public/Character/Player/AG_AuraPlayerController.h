@@ -33,10 +33,12 @@ private:
     TObjectPtr<UInputAction> MoveAction;
 
     void Move(const FInputActionValue& InputActionValue);
+
+    // TraceHit under cursor
     void CursorTrace();
 
-    // Actor at last frame
+    // Actor under cursor at last frame
     IEnemyInterface* LastActor{nullptr};
-    // Actor in current frame
+    // Actor under cursor in current frame
     IEnemyInterface* ThisActor{nullptr};
 };

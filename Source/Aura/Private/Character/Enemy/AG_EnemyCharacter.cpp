@@ -3,12 +3,20 @@
 #include "Character/Enemy/AG_EnemyCharacter.h"
 #include "Aura/Aura.h"
 
+#include "AbilitySystem/AG_AbilitySystemComponent.h"
+#include "AbilitySystem/AG_AttributeSet.h"
+
 AAG_EnemyCharacter::AAG_EnemyCharacter()
 {
-    PrimaryActorTick.bCanEverTick = true;
-
     check(GetMesh());
     GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+
+    AbilitySystemComponent = CreateDefaultSubobject<UAG_AbilitySystemComponent>("AbilitySystemComponent");
+    check(AbilitySystemComponent);
+    AbilitySystemComponent->SetIsReplicated(true);
+
+    AttributeSet = CreateDefaultSubobject<UAG_AttributeSet>("AttributeSet");
+    check(AttributeSet);
 }
 
 void AAG_EnemyCharacter::HighlightActor()

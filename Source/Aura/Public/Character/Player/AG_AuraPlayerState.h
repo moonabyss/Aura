@@ -7,6 +7,9 @@
 
 #include "AG_AuraPlayerState.generated.h"
 
+class UAbilitySystemComponent;
+class UAttributeSet;
+
 UCLASS()
 class AURA_API AAG_AuraPlayerState : public APlayerState
 {
@@ -14,4 +17,14 @@ class AURA_API AAG_AuraPlayerState : public APlayerState
 
 public:
     AAG_AuraPlayerState();
+
+    UAbilitySystemComponent* GetAbilitySystemComponent() const { return AbilitySystemComponent; }
+    UAttributeSet* GetAttributeSet() const { return AttributeSet; }
+
+private:
+    UPROPERTY()
+    TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
+    UPROPERTY()
+    TObjectPtr<UAttributeSet> AttributeSet;
 };

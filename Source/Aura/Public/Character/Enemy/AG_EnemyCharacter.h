@@ -16,6 +16,16 @@ class AURA_API AAG_EnemyCharacter : public AAG_CharacterBase, public IEnemyInter
 
 public:
     AAG_EnemyCharacter();
-    virtual void HighlightActor() override;    // IEnemyInterface
-    virtual void UnHighlightActor() override;  // IEnemyInterface
+
+    virtual void HighlightActor() override;                                                                         // IEnemyInterface
+    virtual void UnHighlightActor() override;                                                                       // IEnemyInterface
+    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }  // IAbilitySystemInterface
+    virtual UAttributeSet* GetAttributeSet() const override { return AttributeSet; }
+
+private:
+    UPROPERTY()
+    TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+
+    UPROPERTY()
+    TObjectPtr<UAttributeSet> AttributeSet;
 };

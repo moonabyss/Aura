@@ -17,6 +17,8 @@ class AURA_API AAG_AuraCharacter : public AAG_CharacterBase
 
 public:
     AAG_AuraCharacter();
+    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;  // IAbilitySystemInterface
+    virtual UAttributeSet* GetAttributeSet() const override;
 
 protected:
     UPROPERTY(EditAnywhere, Category = "Components")
