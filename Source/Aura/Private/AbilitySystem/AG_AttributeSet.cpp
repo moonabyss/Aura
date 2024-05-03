@@ -1,10 +1,15 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
 #include "AbilitySystem/AG_AttributeSet.h"
-#include "AbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 
-UAG_AttributeSet::UAG_AttributeSet() {}
+UAG_AttributeSet::UAG_AttributeSet()
+{
+    InitHealth(100.0f);
+    InitMaxHealth(100.0f);
+    InitMana(50.0f);
+    InitMaxMana(50.0f);
+}
 
 void UAG_AttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
