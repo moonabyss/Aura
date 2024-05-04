@@ -38,7 +38,7 @@ private:
     void CursorTrace();
 
     // Actor under cursor at last frame
-    IEnemyInterface* LastActor{nullptr};
+    TObjectPtr<IEnemyInterface> LastActor{nullptr};
     // Actor under cursor in current frame
-    IEnemyInterface* ThisActor{nullptr};
+    TObjectPtr<IEnemyInterface> ThisActor{nullptr};
 };

@@ -30,4 +30,5 @@ protected:
 
 private:
     void InitAbilityActorInfo();
+    void InitOverlay() const;
 };

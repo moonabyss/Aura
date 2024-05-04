@@ -1,13 +1,16 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
 #include "Character/Player/AG_AuraCharacter.h"
-#include "AbilitySystem/AG_AbilitySystemComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 
+#include "AbilitySystem/AG_AbilitySystemComponent.h"
+#include "Character/Player/AG_AuraPlayerController.h"
 #include "Character/Player/AG_AuraPlayerState.h"
+#include "UI/HUD/AG_HUD.h"
+#include "UI/WidgetController/AG_WidgetController.h"
 
 AAG_AuraCharacter::AAG_AuraCharacter()
 {
@@ -43,6 +46,11 @@ void AAG_AuraCharacter::PossessedBy(AController* NewController)
 
     // Init ability actor info for the server
     InitAbilityActorInfo();
+    // Show HUD for local player
+    if (IsLocallyControlled())
+    {
+        InitOverlay();
+    }
 }
 
 void AAG_AuraCharacter::OnRep_PlayerState()
@@ -51,6 +59,8 @@ void AAG_AuraCharacter::OnRep_PlayerState()
 
     // Init ability actor info for the client
     InitAbilityActorInfo();
+    // Show HUD for clients
+    InitOverlay();
 }
 
 void AAG_AuraCharacter::InitAbilityActorInfo()
@@ -60,5 +70,17 @@ void AAG_AuraCharacter::InitAbilityActorInfo()
         AuraPlayerState->InitAbilityActorInfo(this);
         AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
         AttributeSet = AuraPlayerState->GetAttributeSet();
+    }
+}
+void AAG_AuraCharacter::InitOverlay() const
+{
+    auto* PC = Cast<AAG_AuraPlayerController>(GetController());
+    auto* PS = GetPlayerState<AAG_AuraPlayerState>();
+    if (PC && PS)
+    {
+        if (auto* AuraHUD = Cast<AAG_HUD>(PC->GetHUD()))
+        {
+            AuraHUD->InitOverlay(FWidgetControllerParams(PC, PS, AbilitySystemComponent, AttributeSet));
+        }
     }
 }

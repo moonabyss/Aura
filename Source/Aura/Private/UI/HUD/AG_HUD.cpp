@@ -2,13 +2,28 @@
 
 #include "UI/HUD/AG_HUD.h"
 #include "UI/Widget/AG_UserWidget.h"
+#include "UI/WidgetController/AG_OverlayWidgetController.h"
 
-void AAG_HUD::BeginPlay()
+UAG_OverlayWidgetController* AAG_HUD::GetOverlayWidgetController(const FWidgetControllerParams& WCParams)
 {
-    Super::BeginPlay();
+    if (!OverlayWidgetController)
+    {
+        OverlayWidgetController = NewObject<UAG_OverlayWidgetController>(this, OverlayWidgetControllerClass);
+        OverlayWidgetController->SetWidgetControllerParams(WCParams);
+    }
 
-    if (!OverlayWidgetClass) return;
+    return OverlayWidgetController;
+}
+
+void AAG_HUD::InitOverlay(const FWidgetControllerParams& Params)
+{
+    check(OverlayWidgetClass);
+    check(OverlayWidgetControllerClass);
+
     UUserWidget* Widget = CreateWidget<UUserWidget>(GetWorld(), OverlayWidgetClass);
     check(Widget);
+    OverlayWidget = Cast<UAG_UserWidget>(Widget);
+    OverlayWidget->SetWidgetController(GetOverlayWidgetController(Params));
+
     Widget->AddToViewport();
 }
