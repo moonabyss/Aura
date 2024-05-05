@@ -10,6 +10,7 @@ UAG_OverlayWidgetController* AAG_HUD::GetOverlayWidgetController(const FWidgetCo
     {
         OverlayWidgetController = NewObject<UAG_OverlayWidgetController>(this, OverlayWidgetControllerClass);
         OverlayWidgetController->SetWidgetControllerParams(WCParams);
+        OverlayWidgetController->BindCallbacksToDependencies();
     }
 
     return OverlayWidgetController;
