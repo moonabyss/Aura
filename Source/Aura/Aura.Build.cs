@@ -10,7 +10,7 @@ public class Aura : ModuleRules
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "GameplayAbilities", "UMG", "CoreUObject" });
-
+        PublicIncludePaths.AddRange(new string[] { "Aura" });
         PrivateDependencyModuleNames.AddRange(new string[] { "GameplayTags", "GameplayTasks" });
     }
 }

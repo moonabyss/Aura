@@ -3,12 +3,29 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "AG_Types.h"
 #include "UI/WidgetController/AG_WidgetController.h"
 
 #include "AG_OverlayWidgetController.generated.h"
 
-UCLASS()
+UCLASS(BlueprintType)
 class AURA_API UAG_OverlayWidgetController : public UAG_WidgetController
 {
     GENERATED_BODY()
+
+public:
+    UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+    FOnHealthChangedSignature OnHealthChanged;
+
+    UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+    FOnMaxHealthChangedSignature OnMaxHealthChanged;
+
+    UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+    FOnManaChangedSignature OnManaChanged;
+
+    UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
+    FOnMaxManaChangedSignature OnMaxManaChanged;
+
+    virtual void BroadcastInitialValues() const override;
 };

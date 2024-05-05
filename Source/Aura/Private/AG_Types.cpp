@@ -1,5 +1,3 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
-#pragma once
-
-#include "CoreMinimal.h"
+#include "AG_Types.h"

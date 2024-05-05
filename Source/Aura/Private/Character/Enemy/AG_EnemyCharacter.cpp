@@ -1,7 +1,7 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
 #include "Character/Enemy/AG_EnemyCharacter.h"
-#include "Aura/Aura.h"
+#include "AG_Types.h"
 
 #include "AbilitySystem/AG_AbilitySystemComponent.h"
 #include "AbilitySystem/AG_AttributeSet.h"

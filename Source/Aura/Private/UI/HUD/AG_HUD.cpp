@@ -23,7 +23,10 @@ void AAG_HUD::InitOverlay(const FWidgetControllerParams& Params)
     UUserWidget* Widget = CreateWidget<UUserWidget>(GetWorld(), OverlayWidgetClass);
     check(Widget);
     OverlayWidget = Cast<UAG_UserWidget>(Widget);
-    OverlayWidget->SetWidgetController(GetOverlayWidgetController(Params));
+    auto* WidgetController = GetOverlayWidgetController(Params);
+    if (!WidgetController) return;
 
+    OverlayWidget->SetWidgetController(WidgetController);
+    WidgetController->BroadcastInitialValues();
     Widget->AddToViewport();
 }
