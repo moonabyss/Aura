@@ -17,9 +17,9 @@ void AAG_EffectActor::BeginPlay()
     Super::BeginPlay();
 }
 
-void AAG_EffectActor::ApplyEffectToTarget(AActor* Target, TSubclassOf<UGameplayEffect> GameplayEffectClass)
+void AAG_EffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
 {
-    auto* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);
+    auto* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
     if (!TargetASC) return;
 
     check(GameplayEffectClass);
