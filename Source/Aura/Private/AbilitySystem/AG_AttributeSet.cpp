@@ -40,3 +40,17 @@ void UAG_AttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) c
 {
     GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, MaxMana, OldMaxMana);
 }
+
+void UAG_AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+{
+    Super::PreAttributeChange(Attribute, NewValue);
+
+    if (Attribute == GetHealthAttribute())
+    {
+        NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
+    }
+    if (Attribute == GetManaAttribute())
+    {
+        NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxMana());
+    }
+}
