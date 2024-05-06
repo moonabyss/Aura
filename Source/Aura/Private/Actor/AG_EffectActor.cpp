@@ -23,3 +23,27 @@ void AAG_EffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGame
     const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.0f, EffectContextHandle);
     TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data);
 }
+
+void AAG_EffectActor::OnOverlap(AActor* TargetActor)
+{
+    if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
+    {
+        ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
+    }
+    if (DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnOverlap)
+    {
+        ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
+    }
+}
+
+void AAG_EffectActor::OnEndOverlap(AActor* TargetActor)
+{
+    if (InstantEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
+    {
+        ApplyEffectToTarget(TargetActor, InstantGameplayEffectClass);
+    }
+    if (DurationEffectApplicationPolicy == EEffectApplicationPolicy::ApplyOnEndOverlap)
+    {
+        ApplyEffectToTarget(TargetActor, DurationGameplayEffectClass);
+    }
+}
