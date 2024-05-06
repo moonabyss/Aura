@@ -12,11 +12,6 @@ AAG_EffectActor::AAG_EffectActor()
     SetRootComponent(CreateDefaultSubobject<USceneComponent>("SceneRoot"));
 }
 
-void AAG_EffectActor::BeginPlay()
-{
-    Super::BeginPlay();
-}
-
 void AAG_EffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
 {
     auto* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);

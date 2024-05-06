@@ -8,6 +8,7 @@
 #include "AG_EffectActor.generated.h"
 
 class UGameplayEffect;
+
 UCLASS()
 class AURA_API AAG_EffectActor : public AActor
 {
@@ -17,8 +18,6 @@ public:
     AAG_EffectActor();
 
 protected:
-    virtual void BeginPlay() override;
-
     UFUNCTION(BlueprintCallable)
     virtual void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
 
@@ -27,6 +26,9 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
     TSubclassOf<UGameplayEffect> DurationGameplayEffectClass;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+    TSubclassOf<UGameplayEffect> InfiniteGameplayEffectClass;
 
 private:
 };
