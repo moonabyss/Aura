@@ -2,11 +2,13 @@
 
 #pragma once
 
+#include "ActiveGameplayEffectHandle.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 
 #include "AG_EffectActor.generated.h"
 
+class UAbilitySystemComponent;
 class UGameplayEffect;
 
 UENUM(BlueprintType)
@@ -33,7 +35,6 @@ public:
     AAG_EffectActor();
 
 protected:
-    UFUNCTION(BlueprintCallable)
     virtual void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
 
     UFUNCTION(BlueprintCallable)
@@ -45,26 +46,27 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
     bool bDestroyOnEffectRemoval{false};
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects|Instant Effect")
     TSubclassOf<UGameplayEffect> InstantGameplayEffectClass;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects|Instant Effect")
     EEffectApplicationPolicy InstantEffectApplicationPolicy{EEffectApplicationPolicy::DoNotApply};
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects|Duration Effect")
     TSubclassOf<UGameplayEffect> DurationGameplayEffectClass;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects|Duration Effect")
     EEffectApplicationPolicy DurationEffectApplicationPolicy{EEffectApplicationPolicy::DoNotApply};
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects|Infinite Effect")
     TSubclassOf<UGameplayEffect> InfiniteGameplayEffectClass;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects|Infinite Effect")
     EEffectApplicationPolicy InfiniteEffectApplicationPolicy{EEffectApplicationPolicy::DoNotApply};
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects|Infinite Effect")
     EEffectRemovalPolicy InfiniteEffectRemovalPolicy{EEffectRemovalPolicy::RemoveOnEndOverlap};
 
 private:
+    TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectsHandles;
 };
