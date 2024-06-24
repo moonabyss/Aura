@@ -12,8 +12,5 @@ void UAG_AbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilityS
     FGameplayTagContainer TagContainer;
     EffectSpec.GetAllAssetTags(TagContainer);
 
-    for (const auto& Tag : TagContainer)
-    {
-        // TODO: Broadcast the tag to the Widget Controller
-    }
+    EffectAssetTags.Broadcast(TagContainer);
 }

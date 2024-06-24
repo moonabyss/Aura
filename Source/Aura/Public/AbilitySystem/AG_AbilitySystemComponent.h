@@ -7,6 +7,8 @@
 
 #include "AG_AbilitySystemComponent.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnEffectAssetTagsSig, const FGameplayTagContainer& /*AssetTags*/);
+
 UCLASS()
 class AURA_API UAG_AbilitySystemComponent : public UAbilitySystemComponent
 {
@@ -15,6 +17,11 @@ class AURA_API UAG_AbilitySystemComponent : public UAbilitySystemComponent
 public:
     void AbilityActorInfoSet();
 
+    FOnEffectAssetTagsSig& OnEffectAssetTags() { return EffectAssetTags; }
+
 protected:
     void EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
+
+private:
+    FOnEffectAssetTagsSig EffectAssetTags;
 };

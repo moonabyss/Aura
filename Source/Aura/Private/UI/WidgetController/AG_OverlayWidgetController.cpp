@@ -1,6 +1,7 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
 #include "UI/WidgetController/AG_OverlayWidgetController.h"
+#include "AbilitySystem/AG_AbilitySystemComponent.h"
 #include "AbilitySystem/AG_AttributeSet.h"
 
 void UAG_OverlayWidgetController::BroadcastInitialValues() const
@@ -22,6 +23,18 @@ void UAG_OverlayWidgetController::BindCallbacksToDependencies()
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxHealthAttribute()).AddUObject(this, &ThisClass::MaxHealthChanged);
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetManaAttribute()).AddUObject(this, &ThisClass::ManaChanged);
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAttributeSet->GetMaxManaAttribute()).AddUObject(this, &ThisClass::MaxManaChanged);
+
+    if (auto* ASC = Cast<UAG_AbilitySystemComponent>(AbilitySystemComponent))
+    {
+        ASC->OnEffectAssetTags().AddLambda(
+            [](const FGameplayTagContainer& AssetTags)
+            {
+                for (const auto& Tag : AssetTags)
+                {
+                    //
+                }
+            });
+    }
 }
 
 void UAG_OverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data) const
