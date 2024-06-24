@@ -7,4 +7,13 @@ void UAG_AbilitySystemComponent::AbilityActorInfoSet()
     OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &ThisClass::EffectApplied);
 }
 
-void UAG_AbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle) {}
+void UAG_AbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
+{
+    FGameplayTagContainer TagContainer;
+    EffectSpec.GetAllAssetTags(TagContainer);
+
+    for (const auto& Tag : TagContainer)
+    {
+        // TODO: Broadcast the tag to the Widget Controller
+    }
+}
