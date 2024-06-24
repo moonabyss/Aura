@@ -28,7 +28,8 @@ protected:
     UPROPERTY(EditAnywhere, Category = "Components")
     TObjectPtr<UCameraComponent> Camera{nullptr};
 
+    virtual void InitAbilityActorInfo() override;
+
 private:
-    void InitAbilityActorInfo();
     void InitOverlay() const;
 };

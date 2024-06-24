@@ -24,7 +24,7 @@ void AAG_EnemyCharacter::BeginPlay()
 {
     Super::BeginPlay();
 
-    AbilitySystemComponent->InitAbilityActorInfo(this, this);
+    InitAbilityActorInfo();
 }
 
 void AAG_EnemyCharacter::HighlightActor()
@@ -44,5 +44,14 @@ void AAG_EnemyCharacter::UnHighlightActor()
     if (Weapon)
     {
         Weapon->SetRenderCustomDepth(false);
+    }
+}
+
+void AAG_EnemyCharacter::InitAbilityActorInfo()
+{
+    AbilitySystemComponent->InitAbilityActorInfo(this, this);
+    if (auto* ASC = Cast<UAG_AbilitySystemComponent>(AbilitySystemComponent))
+    {
+        ASC->AbilityActorInfoSet();
     }
 }

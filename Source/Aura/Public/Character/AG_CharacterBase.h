@@ -32,4 +32,6 @@ protected:
 
     UPROPERTY()
     TObjectPtr<UAttributeSet> AttributeSet{nullptr};
+
+    virtual void InitAbilityActorInfo() {};
 };

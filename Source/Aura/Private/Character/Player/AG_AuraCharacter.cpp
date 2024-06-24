@@ -68,8 +68,12 @@ void AAG_AuraCharacter::InitAbilityActorInfo()
     if (auto* AuraPlayerState = GetPlayerState<AAG_AuraPlayerState>())
     {
         AuraPlayerState->InitAbilityActorInfo(this);
-        AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
         AttributeSet = AuraPlayerState->GetAttributeSet();
+        AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
+        if (auto* ASC = Cast<UAG_AbilitySystemComponent>(AbilitySystemComponent))
+        {
+            ASC->AbilityActorInfoSet();
+        }
     }
 }
 void AAG_AuraCharacter::InitOverlay() const
