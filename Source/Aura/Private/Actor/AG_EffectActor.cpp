@@ -19,7 +19,7 @@ void AAG_EffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGame
 
     FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();
     EffectContextHandle.AddSourceObject(this);
-    const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.0f, EffectContextHandle);
+    const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, ActorLevel, EffectContextHandle);
     const FActiveGameplayEffectHandle ActiveEffectHandle = TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data);
 
     const bool bIsInfinite = EffectSpecHandle.Data->Def->DurationPolicy == EGameplayEffectDurationType::Infinite;
