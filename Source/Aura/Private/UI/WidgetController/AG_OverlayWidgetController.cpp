@@ -27,11 +27,11 @@ void UAG_OverlayWidgetController::BindCallbacksToDependencies()
     if (auto* ASC = Cast<UAG_AbilitySystemComponent>(AbilitySystemComponent))
     {
         ASC->OnEffectAssetTags().AddLambda(
-            [](const FGameplayTagContainer& AssetTags)
+            [=, this](const FGameplayTagContainer& AssetTags)
             {
                 for (const auto& Tag : AssetTags)
                 {
-                    //
+                    FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
                 }
             });
     }
