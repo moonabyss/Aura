@@ -9,7 +9,7 @@
 
 #include "AG_OverlayWidgetController.generated.h"
 
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, Blueprintable)
 class AURA_API UAG_OverlayWidgetController : public UAG_WidgetController
 {
     GENERATED_BODY()
@@ -29,6 +29,10 @@ public:
 
     virtual void BroadcastInitialValues() const override;
     virtual void BindCallbacksToDependencies() override;
+
+protected:
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")
+    TObjectPtr<UDataTable> MessageWidgetDataTable{nullptr};
 
 private:
     void HealthChanged(const FOnAttributeChangeData& Data) const;
