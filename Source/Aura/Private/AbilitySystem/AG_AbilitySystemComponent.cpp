@@ -11,6 +11,5 @@ void UAG_AbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilityS
 {
     FGameplayTagContainer TagContainer;
     EffectSpec.GetAllAssetTags(TagContainer);
-
     EffectAssetTags.Broadcast(TagContainer);
 }

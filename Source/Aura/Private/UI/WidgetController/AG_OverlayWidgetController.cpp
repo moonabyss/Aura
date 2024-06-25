@@ -31,7 +31,12 @@ void UAG_OverlayWidgetController::BindCallbacksToDependencies()
             {
                 for (const auto& Tag : AssetTags)
                 {
-                    FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+                    const FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+                    if (Tag.MatchesTag(MessageTag))
+                    {
+                        const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+                        OnMessageWidgetRow.Broadcast(*Row);
+                    }
                 }
             });
     }

@@ -30,6 +30,9 @@ public:
     virtual void BroadcastInitialValues() const override;
     virtual void BindCallbacksToDependencies() override;
 
+    UPROPERTY(BlueprintAssignable, Category = "GAS|Messages")
+    FOnMessageWidgetRowSignature OnMessageWidgetRow;
+
 protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")
     TObjectPtr<UDataTable> MessageWidgetDataTable{nullptr};

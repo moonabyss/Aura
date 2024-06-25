@@ -12,12 +12,6 @@ class UAG_UserWidget;
 // DEFINITIONS
 #define CUSTOM_DEPTH_RED 250
 
-// DELEGATES
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaChangedSignature, float, NewMana);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxManaChangedSignature, float, NewMaxMana);
-
 // STRUCTS
 USTRUCT(BlueprintType)
 struct FUIWidgetRow : public FTableRowBase
@@ -36,6 +30,14 @@ struct FUIWidgetRow : public FTableRowBase
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     UTexture2D* Image{nullptr};
 };
+
+// DELEGATES
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnManaChangedSignature, float, NewMana);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxManaChangedSignature, float, NewMaxMana);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMessageWidgetRowSignature, const FUIWidgetRow&, Row);
 
 UCLASS()
 class AURA_API UAG_Types : public UObject
