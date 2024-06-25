@@ -76,6 +76,7 @@ void AAG_AuraCharacter::InitAbilityActorInfo()
         }
     }
 }
+
 void AAG_AuraCharacter::InitOverlay() const
 {
     auto* PC = Cast<AAG_AuraPlayerController>(GetController());

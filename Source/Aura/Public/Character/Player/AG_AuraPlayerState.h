@@ -20,7 +20,10 @@ public:
     AAG_AuraPlayerState();
 
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }  // IAbilitySystemInterface
+
+    /** Initialize struct ActorInfo of Ability System */
     void InitAbilityActorInfo(AActor* Avatar);
+
     virtual UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 private:

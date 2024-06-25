@@ -22,6 +22,7 @@ void AAG_EffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGame
     const FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, ActorLevel, EffectContextHandle);
     const FActiveGameplayEffectHandle ActiveEffectHandle = TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data);
 
+    // save handle of infinity effect for later removing
     const bool bIsInfinite = EffectSpecHandle.Data->Def->DurationPolicy == EGameplayEffectDurationType::Infinite;
     if (bIsInfinite && InfiniteEffectRemovalPolicy != EEffectRemovalPolicy::DoNotRemove)
     {
@@ -64,6 +65,7 @@ void AAG_EffectActor::OnEndOverlap(AActor* TargetActor)
         auto* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
         if (!IsValid(TargetASC)) return;
 
+        // find effect to remove from target
         TArray<FActiveGameplayEffectHandle> HandlesToRemove;
         for (auto& HandlePair : ActiveEffectsHandles)
         {
@@ -73,6 +75,7 @@ void AAG_EffectActor::OnEndOverlap(AActor* TargetActor)
                 HandlesToRemove.Add(HandlePair.Key);
             }
         }
+        // remove found effects
         for (auto& Handle : HandlesToRemove)
         {
             ActiveEffectsHandles.FindAndRemoveChecked(Handle);

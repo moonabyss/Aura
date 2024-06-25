@@ -1,6 +1,7 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
 #include "AbilitySystem/AG_AttributeSet.h"
+#include "GameFramework/Character.h"
 #include "GameplayEffectExtension.h"
 #include "Net/UnrealNetwork.h"
 
@@ -64,7 +65,7 @@ void UAG_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
     SetEffectProperties(Data, EffectProps);
 }
 
-void UAG_AttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const
+void UAG_AttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, OUT FEffectProperties& Props) const
 {
     // Source - couser of the effect, Target - target of the effect (owner of this AS)
     Props.EffectContextHandle = Data.EffectSpec.GetContext();

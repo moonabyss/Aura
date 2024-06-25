@@ -33,5 +33,6 @@ protected:
     UPROPERTY()
     TObjectPtr<UAttributeSet> AttributeSet{nullptr};
 
+    /** Initialize struct ActorInfo of Ability System */
     virtual void InitAbilityActorInfo() {};
 };

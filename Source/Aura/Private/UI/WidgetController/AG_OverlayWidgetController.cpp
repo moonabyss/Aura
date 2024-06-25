@@ -26,6 +26,7 @@ void UAG_OverlayWidgetController::BindCallbacksToDependencies()
 
     if (auto* ASC = Cast<UAG_AbilitySystemComponent>(AbilitySystemComponent))
     {
+        // when receive asset tags
         ASC->OnEffectAssetTags().AddLambda(
             [=, this](const FGameplayTagContainer& AssetTags)
             {
