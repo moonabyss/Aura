@@ -45,24 +45,83 @@ void UAG_AttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) c
 
 void UAG_AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
+    /**
+     * Вызывается после применения GameEffect или вызова SetAttribute
+     * результатом работы будет новое значение CurrentValue
+     * NewValue = BaseValue = новое значение
+     * GetAttribute() = CurrentValue = старое значение
+     */
     Super::PreAttributeChange(Attribute, NewValue);
 
     if (Attribute == GetHealthAttribute())
     {
-        NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
+        /*
+        float BaseHealth = Health.GetBaseValue();
+        float CurrentHealth = Health.GetCurrentValue();
+        UE_LOG(LogTemp, Warning, TEXT("PreAttributeChange: NewValue before clamping: %f"), NewValue);
+        UE_LOG(LogTemp, Warning, TEXT("PreAttributeChange: BaseHealth: %f, CurrentHealth: %f"), BaseHealth, CurrentHealth);
+        UE_LOG(LogTemp, Warning, TEXT("PreAttributeChange: GetHealth(): %f"), GetHealth());
+        */
+        // NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
+        /*
+        BaseHealth = Health.GetBaseValue();
+        CurrentHealth = Health.GetCurrentValue();
+        UE_LOG(LogTemp, Warning, TEXT("PreAttributeChange: NewValue after clamping: %f"), NewValue);
+        UE_LOG(LogTemp, Warning, TEXT("PreAttributeChange: BaseHealth: %f, CurrentHealth: %f"), BaseHealth, CurrentHealth);
+        UE_LOG(LogTemp, Warning, TEXT("PreAttributeChange: GetHealth(): %f"), GetHealth());
+        */
     }
     if (Attribute == GetManaAttribute())
     {
         NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxMana());
     }
+    /**
+     * После этой функции, но до вызова PostGameplayEffectExecute()
+     * в CurrentAttribute присваивается значение NewValue
+     * GetAttribute() = CurrentValue = NewValue
+     * BaseValue не изменится
+     */
 }
 
 void UAG_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
+    /**
+     * Вызвается после изменения аттрибута
+     * В этом месте GetAttribute() = CurrentValue = NewValue из PreAttributeChange
+     * BaseValue = все еще новое значение;
+     */
     Super::PostGameplayEffectExecute(Data);
 
     FEffectProperties EffectProps;
     SetEffectProperties(Data, EffectProps);
+
+    if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+    {
+        /*
+        float BaseHealth = Health.GetBaseValue();
+        float CurrentHealth = Health.GetCurrentValue();
+        UE_LOG(LogTemp, Warning, TEXT("PostGameplayEffectExecute: BaseHealth: %f, CurrentHealth: %f"), BaseHealth, CurrentHealth);
+        UE_LOG(LogTemp, Warning, TEXT("PostGameplayEffectExecute: GetHealth(): %f"), GetHealth());
+        */
+        /**
+         * меняет BaseValue
+         * вызывает PreAttributeChange()
+         * после этого вызова CurrentValue = BaseValue или как изменим в PreAttributeChange()
+         * клампить достаточно в этом месте
+         */
+        SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
+        /*
+        BaseHealth = Health.GetBaseValue();
+        CurrentHealth = Health.GetCurrentValue();
+        UE_LOG(LogTemp, Warning, TEXT("PostGameplayEffectExecute: BaseHealth: %f, CurrentHealth: %f"), BaseHealth, CurrentHealth);
+        UE_LOG(LogTemp, Warning, TEXT("PostGameplayEffectExecute: GetHealth(): %f"), GetHealth());
+        UE_LOG(LogTemp, Warning, TEXT("----------------------------------------------------------------------------"));
+        */
+    }
+    if (Data.EvaluatedData.Attribute == GetManaAttribute())
+    {
+        SetMana(FMath::Clamp(GetMana(), 0.0f, GetMaxMana()));
+    }
 }
 
 void UAG_AttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, OUT FEffectProperties& Props) const
