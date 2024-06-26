@@ -16,16 +16,16 @@ class AURA_API UAG_OverlayWidgetController : public UAG_WidgetController
 
 public:
     UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-    FOnHealthChangedSignature OnHealthChanged;
+    FOnAttributeChangedSignature OnHealthChanged;
 
     UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-    FOnMaxHealthChangedSignature OnMaxHealthChanged;
+    FOnAttributeChangedSignature OnMaxHealthChanged;
 
     UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-    FOnManaChangedSignature OnManaChanged;
+    FOnAttributeChangedSignature OnManaChanged;
 
     UPROPERTY(BlueprintAssignable, Category = "GAS|Attributes")
-    FOnMaxManaChangedSignature OnMaxManaChanged;
+    FOnAttributeChangedSignature OnMaxManaChanged;
 
     virtual void BroadcastInitialValues() const override;
     virtual void BindCallbacksToDependencies() override;
@@ -38,11 +38,6 @@ protected:
     TObjectPtr<UDataTable> MessageWidgetDataTable{nullptr};
 
 private:
-    void HealthChanged(const FOnAttributeChangeData& Data) const;
-    void MaxHealthChanged(const FOnAttributeChangeData& Data) const;
-    void ManaChanged(const FOnAttributeChangeData& Data) const;
-    void MaxManaChanged(const FOnAttributeChangeData& Data) const;
-
     template <typename T>
     T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag)
     {

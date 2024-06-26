@@ -67,7 +67,7 @@ void AAG_EffectActor::OnEndOverlap(AActor* TargetActor)
 
         // find effect to remove from target
         TArray<FActiveGameplayEffectHandle> HandlesToRemove;
-        for (auto& HandlePair : ActiveEffectsHandles)
+        for (const auto& HandlePair : ActiveEffectsHandles)
         {
             if (TargetASC == HandlePair.Value)
             {
@@ -76,7 +76,7 @@ void AAG_EffectActor::OnEndOverlap(AActor* TargetActor)
             }
         }
         // remove found effects
-        for (auto& Handle : HandlesToRemove)
+        for (const auto& Handle : HandlesToRemove)
         {
             ActiveEffectsHandles.FindAndRemoveChecked(Handle);
         }
