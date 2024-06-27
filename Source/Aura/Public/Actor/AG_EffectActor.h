@@ -35,6 +35,7 @@ public:
     AAG_EffectActor();
 
 protected:
+    UFUNCTION(BlueprintCallable)
     virtual void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
 
     UFUNCTION(BlueprintCallable)
