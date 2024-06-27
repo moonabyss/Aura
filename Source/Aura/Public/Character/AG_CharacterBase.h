@@ -11,6 +11,7 @@
 class USkeletalMeshComponent;
 class UAbilitySystemComponent;
 class UAttributeSet;
+class UGameplayEffect;
 
 UCLASS(Abstract, NotBlueprintable)
 class AURA_API AAG_CharacterBase : public ACharacter, public IAbilitySystemInterface
@@ -35,4 +36,9 @@ protected:
 
     /** Initialize struct ActorInfo of Ability System */
     virtual void InitAbilityActorInfo() {};
+
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+    TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes{nullptr};
+
+    void InitializePrimaryAttributes() const;
 };
