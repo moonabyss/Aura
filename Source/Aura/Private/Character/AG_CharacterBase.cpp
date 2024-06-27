@@ -13,11 +13,17 @@ AAG_CharacterBase::AAG_CharacterBase()
     Weapon->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
-void AAG_CharacterBase::InitializePrimaryAttributes() const
+void AAG_CharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level /*= 1.0f*/) const
 {
-    if (!DefaultPrimaryAttributes || !GetAbilitySystemComponent()) return;
+    if (!GameplayEffectClass || !GetAbilitySystemComponent()) return;
 
     const FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
-    const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(DefaultPrimaryAttributes, 1.0f, ContextHandle);
+    const FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
     GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), GetAbilitySystemComponent());
+}
+
+void AAG_CharacterBase::InitializeDefaultAttributes() const
+{
+    ApplyEffectToSelf(DefaultPrimaryAttributes);
+    ApplyEffectToSelf(DefaultSecondaryAttributes);
 }

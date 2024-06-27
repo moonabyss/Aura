@@ -8,17 +8,12 @@
 UAG_AttributeSet::UAG_AttributeSet()
 {
     InitHealth(50.0f);
-    InitMaxHealth(100.0f);
     InitMana(20.0f);
-    InitMaxMana(50.0f);
 }
 
 void UAG_AttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Health, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Mana, COND_None, REPNOTIFY_Always);
 
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Strength, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
@@ -35,16 +30,9 @@ void UAG_AttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, ManaRegeneration, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, MaxMana, COND_None, REPNOTIFY_Always);
-}
 
-void UAG_AttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
-{
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Health, OldHealth);
-}
-
-void UAG_AttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana) const
-{
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Mana, OldMana);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Health, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Mana, COND_None, REPNOTIFY_Always);
 }
 
 void UAG_AttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const
@@ -114,6 +102,16 @@ void UAG_AttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealt
 void UAG_AttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const
 {
     GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, MaxMana, OldMaxMana);
+}
+
+void UAG_AttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Health, OldHealth);
+}
+
+void UAG_AttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Mana, OldMana);
 }
 
 void UAG_AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)

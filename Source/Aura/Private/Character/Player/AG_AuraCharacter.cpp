@@ -75,7 +75,7 @@ void AAG_AuraCharacter::InitAbilityActorInfo()
             ASC->AbilityActorInfoSet();
         }
     }
-    InitializePrimaryAttributes();
+    InitializeDefaultAttributes();
 }
 
 void AAG_AuraCharacter::InitOverlay() const
