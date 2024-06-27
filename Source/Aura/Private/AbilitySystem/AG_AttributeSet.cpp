@@ -21,6 +21,11 @@ void UAG_AttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Mana, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, MaxMana, COND_None, REPNOTIFY_Always);
+
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Strength, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Resilience, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Vigor, COND_None, REPNOTIFY_Always);
 }
 
 void UAG_AttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
@@ -41,6 +46,26 @@ void UAG_AttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana) const
 void UAG_AttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const
 {
     GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, MaxMana, OldMaxMana);
+}
+
+void UAG_AttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Strength, OldStrength);
+}
+
+void UAG_AttributeSet::OnRep_Intelligence(const FGameplayAttributeData& OldIntelligence) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Intelligence, OldIntelligence);
+}
+
+void UAG_AttributeSet::OnRep_Resilience(const FGameplayAttributeData& OldResilience) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Resilience, OldResilience);
+}
+
+void UAG_AttributeSet::OnRep_Vigor(const FGameplayAttributeData& OldVigor) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Vigor, OldVigor);
 }
 
 void UAG_AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
