@@ -7,7 +7,7 @@
 
 UAG_AttributeSet::UAG_AttributeSet()
 {
-    InitHealth(10.0f);
+    InitHealth(50.0f);
     InitMaxHealth(100.0f);
     InitMana(20.0f);
     InitMaxMana(50.0f);
@@ -18,14 +18,23 @@ void UAG_AttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Health, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Mana, COND_None, REPNOTIFY_Always);
-    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, MaxMana, COND_None, REPNOTIFY_Always);
 
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Strength, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Intelligence, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Resilience, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Vigor, COND_None, REPNOTIFY_Always);
+
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, Armor, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, ArmorPenetration, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, BlockChance, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, CriticalHitChance, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, CriticalHitDamage, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, CriticalHitResistance, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, HealthRegeneration, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, ManaRegeneration, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UAG_AttributeSet, MaxMana, COND_None, REPNOTIFY_Always);
 }
 
 void UAG_AttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
@@ -33,19 +42,9 @@ void UAG_AttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) con
     GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Health, OldHealth);
 }
 
-void UAG_AttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const
-{
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, MaxHealth, OldMaxHealth);
-}
-
 void UAG_AttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana) const
 {
     GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Mana, OldMana);
-}
-
-void UAG_AttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const
-{
-    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, MaxMana, OldMaxMana);
 }
 
 void UAG_AttributeSet::OnRep_Strength(const FGameplayAttributeData& OldStrength) const
@@ -68,12 +67,61 @@ void UAG_AttributeSet::OnRep_Vigor(const FGameplayAttributeData& OldVigor) const
     GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Vigor, OldVigor);
 }
 
+void UAG_AttributeSet::OnRep_Armor(const FGameplayAttributeData& OldArmor) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, Armor, OldArmor);
+}
+void UAG_AttributeSet::OnRep_ArmorPenetration(const FGameplayAttributeData& OldArmorPenetration) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, ArmorPenetration, OldArmorPenetration);
+}
+
+void UAG_AttributeSet::OnRep_BlockChance(const FGameplayAttributeData& OldBlockChance) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, BlockChance, OldBlockChance);
+}
+
+void UAG_AttributeSet::OnRep_CriticalHitChance(const FGameplayAttributeData& OldCriticalHitChance) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, CriticalHitChance, OldCriticalHitChance);
+}
+
+void UAG_AttributeSet::OnRep_CriticalHitDamage(const FGameplayAttributeData& OldCriticalHitDamage) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, CriticalHitDamage, OldCriticalHitDamage);
+}
+
+void UAG_AttributeSet::OnRep_CriticalHitResistance(const FGameplayAttributeData& OldCriticalHitResistance) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, CriticalHitResistance, OldCriticalHitResistance);
+}
+
+void UAG_AttributeSet::OnRep_HealthRegeneration(const FGameplayAttributeData& OldHealthRegeneration) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, HealthRegeneration, OldHealthRegeneration);
+}
+
+void UAG_AttributeSet::OnRep_ManaRegeneration(const FGameplayAttributeData& OldManaRegeneration) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, ManaRegeneration, OldManaRegeneration);
+}
+
+void UAG_AttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, MaxHealth, OldMaxHealth);
+}
+
+void UAG_AttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UAG_AttributeSet, MaxMana, OldMaxMana);
+}
+
 void UAG_AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
     /**
-     * Вызывается после применения GameEffect или вызова SetAttribute
-     * результатом работы будет новое значение CurrentValue
-     * NewValue = BaseValue = новое значение
+     * Вызывается после применения GameplayEffect или вызова SetAttribute
+     * работает только с CurrentValue
+     * NewValue = новое значение
      * GetAttribute() = CurrentValue = старое значение
      */
     Super::PreAttributeChange(Attribute, NewValue);
@@ -87,7 +135,7 @@ void UAG_AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, f
         UE_LOG(LogTemp, Warning, TEXT("PreAttributeChange: BaseHealth: %f, CurrentHealth: %f"), BaseHealth, CurrentHealth);
         UE_LOG(LogTemp, Warning, TEXT("PreAttributeChange: GetHealth(): %f"), GetHealth());
         */
-        // NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
+        NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
         /*
         BaseHealth = Health.GetBaseValue();
         CurrentHealth = Health.GetCurrentValue();
@@ -111,9 +159,10 @@ void UAG_AttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, f
 void UAG_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
     /**
-     * Вызвается после изменения аттрибута
+     * Вызывается после изменения аттрибута
+     * GameplayEffect меняет BaseValue, новое значение нужно обработать в PreAttributeChange
      * В этом месте GetAttribute() = CurrentValue = NewValue из PreAttributeChange
-     * BaseValue = все еще новое значение;
+     * BaseValue = все еще новое значение после применения GameEffect;
      */
     Super::PostGameplayEffectExecute(Data);
 
@@ -132,7 +181,7 @@ void UAG_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
          * меняет BaseValue
          * вызывает PreAttributeChange()
          * после этого вызова CurrentValue = BaseValue или как изменим в PreAttributeChange()
-         * клампить достаточно в этом месте
+         * сохраняем финальное значение аттрибута в BaseValue и CurrentValue
          */
         SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
         /*
