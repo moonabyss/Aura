@@ -27,4 +27,5 @@ void AAG_CharacterBase::InitializeDefaultAttributes() const
 {
     ApplyEffectToSelf(DefaultPrimaryAttributes);
     ApplyEffectToSelf(DefaultSecondaryAttributes);
+    ApplyEffectToSelf(DefaultVitalAttributes);
 }

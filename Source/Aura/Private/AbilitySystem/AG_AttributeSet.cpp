@@ -5,11 +5,7 @@
 #include "GameplayEffectExtension.h"
 #include "Net/UnrealNetwork.h"
 
-UAG_AttributeSet::UAG_AttributeSet()
-{
-    InitHealth(50.0f);
-    InitMana(20.0f);
-}
+UAG_AttributeSet::UAG_AttributeSet() {}
 
 void UAG_AttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
