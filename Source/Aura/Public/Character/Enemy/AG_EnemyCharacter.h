@@ -17,11 +17,16 @@ class AURA_API AAG_EnemyCharacter : public AAG_CharacterBase, public IEnemyInter
 public:
     AAG_EnemyCharacter();
 
-    virtual void HighlightActor() override;    // IEnemyInterface
-    virtual void UnHighlightActor() override;  // IEnemyInterface
+    virtual void HighlightActor() override;                          // IEnemyInterface
+    virtual void UnHighlightActor() override;                        // IEnemyInterface
+    virtual int32 GetPlayerLevel() const override { return Level; }  // ICombatInterface
 
 protected:
     virtual void BeginPlay() override;
 
     virtual void InitAbilityActorInfo() override;
+
+private:
+    UPROPERTY(EditAnywhere, Category = "Character Class Defaults")
+    int32 Level{1};
 };

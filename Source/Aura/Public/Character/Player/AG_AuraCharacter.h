@@ -20,6 +20,7 @@ public:
 
     virtual void PossessedBy(AController* NewController) override;
     virtual void OnRep_PlayerState() override;
+    virtual int32 GetPlayerLevel() const override;  // ICombatInterface
 
 protected:
     UPROPERTY(EditAnywhere, Category = "Components")

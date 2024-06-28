@@ -63,6 +63,15 @@ void AAG_AuraCharacter::OnRep_PlayerState()
     InitOverlay();
 }
 
+int32 AAG_AuraCharacter::GetPlayerLevel() const
+{
+    if (auto* AuraPlayerState = GetPlayerState<AAG_AuraPlayerState>())
+    {
+        return AuraPlayerState->GetPlayerLevel();
+    }
+    return 0;
+}
+
 void AAG_AuraCharacter::InitAbilityActorInfo()
 {
     if (auto* AuraPlayerState = GetPlayerState<AAG_AuraPlayerState>())

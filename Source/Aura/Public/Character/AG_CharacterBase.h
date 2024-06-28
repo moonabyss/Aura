@@ -6,6 +6,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 
+#include "Interaction/CombatInterface.h"
+
 #include "AG_CharacterBase.generated.h"
 
 class USkeletalMeshComponent;
@@ -14,7 +16,7 @@ class UAttributeSet;
 class UGameplayEffect;
 
 UCLASS(Abstract, NotBlueprintable)
-class AURA_API AAG_CharacterBase : public ACharacter, public IAbilitySystemInterface
+class AURA_API AAG_CharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
     GENERATED_BODY()
 
@@ -22,6 +24,7 @@ public:
     AAG_CharacterBase();
 
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }  // IAbilitySystemInterface
+    virtual int32 GetPlayerLevel() const override { return 0; }                                                     // ICombatInterface
     virtual UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 protected:
