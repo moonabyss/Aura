@@ -6,17 +6,19 @@
 #include "GameplayTagContainer.h"
 
 /**
- * AG_GameplayTags
+ * AuraGameplayTags
  *
  * Singleton containg native Gameplay Tags
  */
 
-struct FAG_GameplayTags
+struct FAuraGameplayTags
 {
 public:
-    static const FAG_GameplayTags& Get() { return GameplayTags; }
+    static const FAuraGameplayTags& Get() { return GameplayTags; }
     static void InitializeNativeGameplayTags();
 
+    FGameplayTag Attrubutes_Secondary_Armor;
+
 private:
-    static FAG_GameplayTags GameplayTags;
+    static FAuraGameplayTags GameplayTags;
 };
