@@ -17,4 +17,7 @@ class AURA_API UAG_BlueprintFunctionLibrary : public UBlueprintFunctionLibrary
 public:
     UFUNCTION(BlueprintPure, Category = "UI|Widget Controller")
     static UAG_OverlayWidgetController* GetOverlayWidgetGontroller(const UObject* WorldContextObject);
+
+    UFUNCTION(BlueprintPure, Category = "UI|Widget Controller")
+    static UAG_AttributeMenuWidgetController* GetAttributeMenuWidgetGontroller(const UObject* WorldContextObject);
 };

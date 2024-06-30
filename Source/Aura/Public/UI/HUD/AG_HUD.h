@@ -8,6 +8,7 @@
 #include "AG_HUD.generated.h"
 
 class UAG_OverlayWidgetController;
+class UAG_AttributeMenuWidgetController;
 class UAG_UserWidget;
 struct FWidgetControllerParams;
 
@@ -18,6 +19,7 @@ class AURA_API AAG_HUD : public AHUD
 
 public:
     UAG_OverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
+    UAG_AttributeMenuWidgetController* GetAttributeMenuWidgetController(const FWidgetControllerParams& WCParams);
     void InitOverlay(const FWidgetControllerParams& Params);
 
 private:
@@ -32,4 +34,10 @@ private:
 
     UPROPERTY(EditAnywhere)
     TSubclassOf<UAG_OverlayWidgetController> OverlayWidgetControllerClass;
+
+    UPROPERTY()
+    TObjectPtr<UAG_AttributeMenuWidgetController> AttributeMenuWidgetController;
+
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<UAG_AttributeMenuWidgetController> AttributeMenuWidgetControllerClass;
 };

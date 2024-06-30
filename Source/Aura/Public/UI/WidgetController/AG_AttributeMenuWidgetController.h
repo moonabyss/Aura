@@ -7,12 +7,12 @@
 
 #include "AG_AttributeMenuWidgetController.generated.h"
 
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class AURA_API UAG_AttributeMenuWidgetController : public UAG_WidgetController
 {
     GENERATED_BODY()
 
-protected:
+public:
     virtual void BroadcastInitialValues() const override;
     virtual void BindCallbacksToDependencies() override;
 };

@@ -44,6 +44,8 @@ class AURA_API UAG_WidgetController : public UObject
 public:
     UFUNCTION(BlueprintCallable)
     void SetWidgetControllerParams(const FWidgetControllerParams& Params);
+    virtual void BroadcastInitialValues() const {};
+    virtual void BindCallbacksToDependencies() {};
 
 protected:
     UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
@@ -57,7 +59,4 @@ protected:
 
     UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
     TObjectPtr<UAttributeSet> AttributeSet;
-
-    virtual void BroadcastInitialValues() const {};
-    virtual void BindCallbacksToDependencies() {};
 };
