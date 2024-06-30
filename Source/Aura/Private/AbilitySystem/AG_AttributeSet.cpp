@@ -1,11 +1,20 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
 #include "AbilitySystem/AG_AttributeSet.h"
+#include "AuraGameplayTags.h"
 #include "GameFramework/Character.h"
 #include "GameplayEffectExtension.h"
 #include "Net/UnrealNetwork.h"
 
-UAG_AttributeSet::UAG_AttributeSet() {}
+UAG_AttributeSet::UAG_AttributeSet()
+{
+    const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();
+
+    TagsToAttributes.Add(GameplayTags.Attrubutes_Primary_Strength, GetStrengthAttribute);
+    TagsToAttributes.Add(GameplayTags.Attrubutes_Primary_Intelligence, GetIntelligenceAttribute);
+    TagsToAttributes.Add(GameplayTags.Attrubutes_Primary_Resilience, GetResilienceAttribute);
+    TagsToAttributes.Add(GameplayTags.Attrubutes_Primary_Vigor, GetVigorAttribute);
+}
 
 void UAG_AttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {

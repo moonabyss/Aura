@@ -10,9 +10,12 @@ void UAG_AttributeMenuWidgetController::BroadcastInitialValues() const
     auto* AS = CastChecked<UAG_AttributeSet>(AttributeSet);
     check(AttributeInfo);
 
-    FAuraAttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(FAuraGameplayTags::Get().Attrubutes_Primary_Strength);
-    Info.AttributeValue = AS->GetStrength();
-    AttributeInfoDelegate.Broadcast(Info);
+    for (const auto& Pair : AS->TagsToAttributes)
+    {
+        FAuraAttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(Pair.Key);
+        Info.AttributeValue = Pair.Value().GetNumericValue(AS);
+        AttributeInfoDelegate.Broadcast(Info);
+    }
 }
 
 void UAG_AttributeMenuWidgetController::BindCallbacksToDependencies() {}
