@@ -13,6 +13,7 @@ class IEnemyInterface;
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
+class UAG_AbilitySystemComponent;
 
 UCLASS()
 class AURA_API AAG_AuraPlayerController : public APlayerController
@@ -46,15 +47,15 @@ private:
 
     void BindAbilityActions(UEnhancedInputComponent* EnhancedInputComponent);
 
-    UFUNCTION()
     void AbilityInputTagPressed(FGameplayTag InputTag);
-
-    UFUNCTION()
     void AbilityInputTagReleased(FGameplayTag InputTag);
-
-    UFUNCTION()
     void AbilityInputTagHeld(FGameplayTag InputTag);
 
     UPROPERTY(EditDefaultsOnly, Category = "Input")
     TObjectPtr<UAG_InputConfig> InputConfig;
+
+    UPROPERTY()
+    TObjectPtr<UAG_AbilitySystemComponent> AuraAbilitySystemComponent;
+
+    UAG_AbilitySystemComponent* GetAuraASC();
 };

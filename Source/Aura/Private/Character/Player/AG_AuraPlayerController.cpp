@@ -4,6 +4,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "GameplayTagContainer.h"
 // #include "Input/AG_InputComponent.h"
+#include "AbilitySystem/AG_AbilitySystemComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
 #include "EnhancedInputComponent.h"
 #include "Input/AG_InputConfig.h"
 #include "Interaction/EnemyInterface.h"
@@ -123,6 +125,27 @@ void AAG_AuraPlayerController::BindAbilityActions(UEnhancedInputComponent* Enhan
 
 void AAG_AuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag) {}
 
-void AAG_AuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag) {}
+void AAG_AuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
+{
+    if (auto* ASC = GetAuraASC())
+    {
+        ASC->AbilityInputTagReleased(InputTag);
+    }
+}
 
-void AAG_AuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag) {}
+void AAG_AuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
+{
+    if (auto* ASC = GetAuraASC())
+    {
+        ASC->AbilityInputTagHeld(InputTag);
+    }
+}
+
+UAG_AbilitySystemComponent* AAG_AuraPlayerController::GetAuraASC()
+{
+    if (!AuraAbilitySystemComponent)
+    {
+        AuraAbilitySystemComponent = Cast<UAG_AbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn()));
+    }
+    return AuraAbilitySystemComponent;
+}
