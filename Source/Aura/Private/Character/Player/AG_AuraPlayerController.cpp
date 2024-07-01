@@ -1,9 +1,11 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
 #include "Character/Player/AG_AuraPlayerController.h"
-#include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-
+#include "GameplayTagContainer.h"
+// #include "Input/AG_InputComponent.h"
+#include "EnhancedInputComponent.h"
+#include "Input/AG_InputConfig.h"
 #include "Interaction/EnemyInterface.h"
 
 AAG_AuraPlayerController::AAG_AuraPlayerController()
@@ -47,8 +49,14 @@ void AAG_AuraPlayerController::SetupInputComponent()
     Super::SetupInputComponent();
 
     // Bind Input
+    /*
+    UAG_InputComponent* AuraInputComponent = CastChecked<UAG_InputComponent>(InputComponent);
+    AuraInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
+    AuraInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
+    */
     UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
     EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
+    BindAbilityActions(EnhancedInputComponent);
 }
 
 void AAG_AuraPlayerController::Move(const FInputActionValue& InputActionValue)
@@ -97,3 +105,24 @@ void AAG_AuraPlayerController::CursorTrace()
     }
     LastActor = ThisActor;
 }
+
+void AAG_AuraPlayerController::BindAbilityActions(UEnhancedInputComponent* EnhancedInputComponent)
+{
+    check(InputConfig);
+
+    for (const auto& [Action, Tag] : InputConfig->AbilityInputActions)
+    {
+        if (Action && Tag.IsValid())
+        {
+            EnhancedInputComponent->BindAction(Action, ETriggerEvent::Started, this, &ThisClass::AbilityInputTagPressed, Tag);
+            EnhancedInputComponent->BindAction(Action, ETriggerEvent::Completed, this, &ThisClass::AbilityInputTagReleased, Tag);
+            EnhancedInputComponent->BindAction(Action, ETriggerEvent::Triggered, this, &ThisClass::AbilityInputTagHeld, Tag);
+        }
+    }
+}
+
+void AAG_AuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag) {}
+
+void AAG_AuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag) {}
+
+void AAG_AuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag) {}

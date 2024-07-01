@@ -7,6 +7,8 @@
 
 #include "AG_AuraPlayerController.generated.h"
 
+struct FGameplayTag;
+class UAG_InputConfig;
 class IEnemyInterface;
 class UInputMappingContext;
 class UInputAction;
@@ -41,4 +43,18 @@ private:
     TObjectPtr<IEnemyInterface> LastActor{nullptr};
     // Actor under cursor in current frame
     TObjectPtr<IEnemyInterface> ThisActor{nullptr};
+
+    void BindAbilityActions(UEnhancedInputComponent* EnhancedInputComponent);
+
+    UFUNCTION()
+    void AbilityInputTagPressed(FGameplayTag InputTag);
+
+    UFUNCTION()
+    void AbilityInputTagReleased(FGameplayTag InputTag);
+
+    UFUNCTION()
+    void AbilityInputTagHeld(FGameplayTag InputTag);
+
+    UPROPERTY(EditDefaultsOnly, Category = "Input")
+    TObjectPtr<UAG_InputConfig> InputConfig;
 };
