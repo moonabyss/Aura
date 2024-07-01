@@ -46,6 +46,9 @@ void AAG_AuraCharacter::PossessedBy(AController* NewController)
 
     // Init ability actor info for the server
     InitAbilityActorInfo();
+
+    AddCharacterAbilities();
+
     // Show HUD for local player
     if (IsLocallyControlled())
     {

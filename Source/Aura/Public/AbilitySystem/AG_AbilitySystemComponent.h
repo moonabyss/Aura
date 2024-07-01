@@ -20,6 +20,8 @@ public:
 
     FOnEffectAssetTagsSignature& OnEffectAssetTags() { return EffectAssetTags; }
 
+    void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& AbilitiesToAdd);
+
 protected:
     /** callback */
     void EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);

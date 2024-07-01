@@ -10,6 +10,7 @@
 
 #include "AG_CharacterBase.generated.h"
 
+class UGameplayAbility;
 class USkeletalMeshComponent;
 class UAbilitySystemComponent;
 class UAttributeSet;
@@ -40,15 +41,21 @@ protected:
     /** Initialize struct ActorInfo of Ability System */
     virtual void InitAbilityActorInfo() {};
 
-    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Gameplay Ability System|Attributes")
     TSubclassOf<UGameplayEffect> DefaultPrimaryAttributes{nullptr};
 
-    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Gameplay Ability System|Attributes")
     TSubclassOf<UGameplayEffect> DefaultSecondaryAttributes{nullptr};
 
-    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Gameplay Ability System|Attributes")
     TSubclassOf<UGameplayEffect> DefaultVitalAttributes{nullptr};
 
     void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level = 1.0f) const;
     void InitializeDefaultAttributes() const;
+
+    void AddCharacterAbilities();
+
+private:
+    UPROPERTY(EditDefaultsOnly, Category = "Gameplay Ability System|Abilities")
+    TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 };
