@@ -4,7 +4,7 @@
 
 DEFINE_LOG_CATEGORY_STATIC(LogAttributeInfo, All, All)
 
-FAuraAttributeInfo UAG_AttributeInfo::FindAttributeInfoForTag(const FGameplayTag& AttributeTag, bool bLogIfNotFound /*= false*/) const
+FAuraAttributeInfo UAG_AttributeInfo::FindAttributeInfoForTag(const FGameplayTag& AttributeTag, bool bLogIfNotFound /*= true*/) const
 {
     for (const auto& Info : AttributeInformation)
     {
@@ -16,7 +16,7 @@ FAuraAttributeInfo UAG_AttributeInfo::FindAttributeInfoForTag(const FGameplayTag
 
     if (bLogIfNotFound)
     {
-        UE_LOG(LogAttributeInfo, Error, TEXT("Can't find info for AttributeTaf [%s] on AttributeInfo [%s]"), *AttributeTag.ToString(), *GetNameSafe(this));
+        UE_LOG(LogAttributeInfo, Error, TEXT("Can't find info for AttributeTag [%s] on AttributeInfo [%s]"), *AttributeTag.ToString(), *GetNameSafe(this));
     }
 
     return FAuraAttributeInfo();
