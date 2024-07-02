@@ -11,6 +11,8 @@
 #include "EnhancedInputComponent.h"
 #include "Input/AG_InputConfig.h"
 #include "Interaction/EnemyInterface.h"
+#include "NavigationPath.h"
+#include "NavigationSystem.h"
 
 AAG_AuraPlayerController::AAG_AuraPlayerController()
 {
@@ -138,9 +140,41 @@ void AAG_AuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 
 void AAG_AuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
-    if (auto* ASC = GetAuraASC())
+    if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB))
     {
-        ASC->AbilityInputTagReleased(InputTag);
+        if (auto* ASC = GetAuraASC())
+        {
+            ASC->AbilityInputTagReleased(InputTag);
+        }
+        return;
+    }
+
+    if (bTargeting)
+    {
+        if (auto* ASC = GetAuraASC())
+        {
+            ASC->AbilityInputTagReleased(InputTag);
+        }
+    }
+    else
+    {
+        const auto* ControlledPawn = GetPawn();
+        if (FollowTime <= ShortPressThreshold && ControlledPawn)
+        {
+            if (auto* NavPath = UNavigationSystemV1::FindPathToLocationSynchronously(this, ControlledPawn->GetActorLocation(), CachedDestination))
+            {
+                SplineAutoPath->ClearSplinePoints();
+                for (const auto& PointLoc : NavPath->PathPoints)
+                {
+                    SplineAutoPath->AddSplineWorldPoint(PointLoc);
+                    // SplineAutoPath->AddSplinePoint(PointLoc, ESplineCoordinateSpace::World);
+                    DrawDebugSphere(GetWorld(), PointLoc, 8.0f, 8, FColor::Green, false, 5.0f);
+                }
+                bAutoRunning = true;
+            }
+        }
+        FollowTime = 0.0f;
+        bTargeting = false;
     }
 }
 
