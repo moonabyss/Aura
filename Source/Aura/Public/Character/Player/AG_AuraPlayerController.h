@@ -71,4 +71,6 @@ private:
 
     UPROPERTY(VisibleAnywhere)
     TObjectPtr<USplineComponent> SplineAutoPath = nullptr;
+
+    void AutoRun();
 };
