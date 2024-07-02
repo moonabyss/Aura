@@ -1,12 +1,11 @@
 // Aura Game, Copyright moonabyss. All Rights Reserved.
 
 #include "AbilitySystem/AG_AbilitySystemComponent.h"
-
 #include "AbilitySystem/Abilities/AG_GameplayAbility.h"
 
 void UAG_AbilitySystemComponent::AbilityActorInfoSet()
 {
-    OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &ThisClass::EffectApplied);
+    OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &ThisClass::Client_EffectApplied);
 }
 
 void UAG_AbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& AbilitiesToAdd)
@@ -52,7 +51,8 @@ void UAG_AbilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTa
     }
 }
 
-void UAG_AbilitySystemComponent::EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
+void UAG_AbilitySystemComponent::Client_EffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec,
+                                                                     FActiveGameplayEffectHandle ActiveEffectHandle)
 {
     FGameplayTagContainer TagContainer;
     EffectSpec.GetAllAssetTags(TagContainer);

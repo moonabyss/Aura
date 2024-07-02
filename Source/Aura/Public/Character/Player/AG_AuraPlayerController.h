@@ -8,13 +8,13 @@
 #include "AG_AuraPlayerController.generated.h"
 
 struct FGameplayTag;
-class UAG_InputConfig;
+struct FInputActionValue;
 class IEnemyInterface;
 class UInputMappingContext;
 class UInputAction;
-struct FInputActionValue;
-class UAG_AbilitySystemComponent;
 class USplineComponent;
+class UAG_AbilitySystemComponent;
+class UAG_InputConfig;
 
 UCLASS()
 class AURA_API AAG_AuraPlayerController : public APlayerController
@@ -37,6 +37,8 @@ private:
     TObjectPtr<UInputAction> MoveAction;
 
     void Move(const FInputActionValue& InputActionValue);
+
+    FHitResult CursorHit;
 
     // TraceHit under cursor
     void CursorTrace();
