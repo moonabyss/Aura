@@ -26,6 +26,7 @@ public:
 
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override { return AbilitySystemComponent; }  // IAbilitySystemInterface
     virtual int32 GetPlayerLevel() const override { return 0; }                                                     // ICombatInterface
+    virtual FVector GetCombatSocketLocation() const override { return FVector::ZeroVector; }                        // ICombatInterface
     virtual UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 protected:

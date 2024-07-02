@@ -20,7 +20,8 @@ public:
 
     virtual void PossessedBy(AController* NewController) override;
     virtual void OnRep_PlayerState() override;
-    virtual int32 GetPlayerLevel() const override;  // ICombatInterface
+    virtual int32 GetPlayerLevel() const override;             // ICombatInterface
+    virtual FVector GetCombatSocketLocation() const override;  // ICombatInterface
 
 protected:
     UPROPERTY(EditAnywhere, Category = "Components")
@@ -30,6 +31,9 @@ protected:
     TObjectPtr<UCameraComponent> Camera{nullptr};
 
     virtual void InitAbilityActorInfo() override;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Combat")
+    FName WeaponTipSocketName = FName();
 
 private:
     void InitOverlay() const;

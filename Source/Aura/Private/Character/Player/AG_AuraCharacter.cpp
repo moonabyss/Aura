@@ -74,6 +74,10 @@ int32 AAG_AuraCharacter::GetPlayerLevel() const
     }
     return 0;
 }
+FVector AAG_AuraCharacter::GetCombatSocketLocation() const
+{
+    return Weapon->GetSocketLocation(WeaponTipSocketName);
+}
 
 void AAG_AuraCharacter::InitAbilityActorInfo()
 {

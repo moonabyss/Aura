@@ -7,6 +7,7 @@
 AAG_Projectile::AAG_Projectile()
 {
     PrimaryActorTick.bCanEverTick = false;
+    bReplicates = true;
 
     Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
     SetRootComponent(Sphere);
@@ -29,5 +30,4 @@ void AAG_Projectile::BeginPlay()
     Sphere->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnSphereOverlap);
 }
 
-void AAG_Projectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{}
+void AAG_Projectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) {}
