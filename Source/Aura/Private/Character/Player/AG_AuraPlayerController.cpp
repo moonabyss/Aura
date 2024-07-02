@@ -6,6 +6,8 @@
 // #include "Input/AG_InputComponent.h"
 #include "AbilitySystem/AG_AbilitySystemComponent.h"
 #include "AbilitySystemBlueprintLibrary.h"
+#include "AuraGameplayTags.h"
+#include "Components/SplineComponent.h"
 #include "EnhancedInputComponent.h"
 #include "Input/AG_InputConfig.h"
 #include "Interaction/EnemyInterface.h"
@@ -13,6 +15,8 @@
 AAG_AuraPlayerController::AAG_AuraPlayerController()
 {
     bReplicates = true;
+
+    SplineAutoPath = CreateDefaultSubobject<USplineComponent>("Spline");
 }
 
 void AAG_AuraPlayerController::PlayerTick(float DeltaTime)
@@ -123,7 +127,14 @@ void AAG_AuraPlayerController::BindAbilityActions(UEnhancedInputComponent* Enhan
     }
 }
 
-void AAG_AuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag) {}
+void AAG_AuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
+{
+    if (InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB))
+    {
+        bTargeting = ThisActor ? true : false;
+        bAutoRunning = false;
+    }
+}
 
 void AAG_AuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
@@ -135,9 +146,37 @@ void AAG_AuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 
 void AAG_AuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
-    if (auto* ASC = GetAuraASC())
+    if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB))
     {
-        ASC->AbilityInputTagHeld(InputTag);
+        if (auto* ASC = GetAuraASC())
+        {
+            ASC->AbilityInputTagHeld(InputTag);
+        }
+        return;
+    }
+
+    if (bTargeting)
+    {
+        if (auto* ASC = GetAuraASC())
+        {
+            ASC->AbilityInputTagHeld(InputTag);
+        }
+    }
+    else
+    {
+        FollowTime += GetWorld()->GetDeltaSeconds();
+
+        FHitResult Hit;
+        if (GetHitResultUnderCursor(ECC_Visibility, false, Hit))
+        {
+            CachedDestination = Hit.ImpactPoint;
+        }
+
+        if (auto* ControlledPawn = GetPawn())
+        {
+            const FVector WorldDirection = (CachedDestination - ControlledPawn->GetActorLocation()).GetSafeNormal();
+            ControlledPawn->AddMovementInput(WorldDirection);
+        }
     }
 }
 

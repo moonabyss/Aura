@@ -14,6 +14,7 @@ class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 class UAG_AbilitySystemComponent;
+class USplineComponent;
 
 UCLASS()
 class AURA_API AAG_AuraPlayerController : public APlayerController
@@ -52,10 +53,22 @@ private:
     void AbilityInputTagHeld(FGameplayTag InputTag);
 
     UPROPERTY(EditDefaultsOnly, Category = "Input")
-    TObjectPtr<UAG_InputConfig> InputConfig;
+    TObjectPtr<UAG_InputConfig> InputConfig = nullptr;
 
     UPROPERTY()
     TObjectPtr<UAG_AbilitySystemComponent> AuraAbilitySystemComponent;
 
     UAG_AbilitySystemComponent* GetAuraASC();
+
+    FVector CachedDestination = FVector::ZeroVector;
+    float FollowTime = 0.0f;
+    float ShortPressThreshold = 0.5f;
+    bool bAutoRunning = false;
+    bool bTargeting = false;
+
+    UPROPERTY(EditDefaultsOnly)
+    float AutoRunAcceptanceRadius = 50.0f;
+
+    UPROPERTY(VisibleAnywhere)
+    TObjectPtr<USplineComponent> SplineAutoPath = nullptr;
 };
