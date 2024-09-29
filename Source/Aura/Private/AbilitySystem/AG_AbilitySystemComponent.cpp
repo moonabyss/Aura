@@ -51,8 +51,7 @@ void UAG_AbilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTa
     }
 }
 
-void UAG_AbilitySystemComponent::Client_EffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec,
-                                                                     FActiveGameplayEffectHandle ActiveEffectHandle)
+void UAG_AbilitySystemComponent::Client_EffectApplied_Implementation(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle)
 {
     FGameplayTagContainer TagContainer;
     EffectSpec.GetAllAssetTags(TagContainer);
